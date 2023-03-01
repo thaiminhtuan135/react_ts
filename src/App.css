@@ -39,3 +39,7 @@
 .header{
   color: red;
 }
+
+.none-decorate-text{
+ text-decoration: none;
+}

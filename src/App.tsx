@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Asa from "./components/example";
+import CustomInput from "./components/CustomInput";
 
 interface fullName {
     firstName: string;
@@ -22,6 +23,19 @@ interface postItem {
 
 }
 
+interface button {
+    title: string,
+    href? : string,
+    onClick? : () => void
+
+}
+
+interface input {
+    label: string;
+    type: string;
+    placeholder: string;
+    // arr : {type : string , placeholder: string}
+}
 function Header(props: fullName) {
     return (
         <div className="header">
@@ -67,13 +81,23 @@ function PostItem(props: postItem) {
     )
 }
 
+function Button(props:button) {
+    return(
+        <div>
+            <button onClick={props.onClick}>
+                <a href={props.href} className="none-decorate-text">props.title</a>
+            </button>
+        </div>
+    );
+}
+
 function App() {
     const name = 'tuan';
     const age = 12;
     const submit = () => {
         console.log('tuan')
     }
-    const test = (id = 1) => {
+    const test   = (id = 1) => {
         console.log(id);
     }
     const recourse = [
@@ -128,7 +152,25 @@ function App() {
     ];
 
     const handleClick = (x : {title:string}) => console.log(x.title)
+    const Form = {
+        Input(props:input){  // ...inputProps
+            return (
+                <div>
+                    <label htmlFor="">{props.label}</label>
+                    <input type={props.type} placeholder={props.placeholder}/>
+                    {/*<input {...inputProps}/>*/}
 
+                </div>
+            )
+        },
+        CheckBox() {
+            return <input type="checkbox"/>
+        },
+    }
+
+    // const type = 'CheckBox';
+    const Component = Form['CheckBox'];
+    const Input = Form['Input'];
     return (
         <div className="App">
             <Asa name={name} age={age} submit={submit}/>
@@ -145,12 +187,16 @@ function App() {
             <div>
                 {
                     course.map(course => (
-                        <PostItem key={course.id} title={course.title} image={course.content} description={course.description}
-                                  call={() => handleClick(course)} />
+                        <PostItem key={course.id} title={course.title} image={course.content}
+                                  description={course.description}
+                                  call={() => handleClick(course)}/>
                     ))
                 }
             </div>
-
+            <Component/>
+            <Button title={"Click me"} onClick={() => console.log(Math.random())} href={"https://coccoc.com/search?query=typescript+href+in+button"}/>
+            {/*<Input label={"Name"} type={"type"} placeholder={"Enter Name..."} />*/}
+            <CustomInput onFocusCapture={() => console.log(Math.random())} type={"text"} placeholder={"Enter name..."} label={"Name"}/>
         </div>
     );
 }
