@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Asa from "./components/example";
 import CustomInput from "./components/CustomInput";
+import {json} from "stream/consumers";
 
 interface fullName {
     firstName: string;
@@ -215,32 +216,51 @@ function App() {
         });
     }
     console.log(checked)
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
+
+
+    // console.log(storageJobs)
+    const [job, setJob] = useState('');
+    const [jobs, setJobs] = useState(() => {
+        // @ts-ignore
+        const storageJobs = JSON.parse(localStorage.getItem('jobs'));
+        return storageJobs ?? [];
+    });
+    const handleSubmitTodoList = () => {
+        if (job != '') {
+            // @ts-ignore
+            setJobs(prevState => {
+                const newJobs = [...prevState, job];
+                const jsonJob = JSON.stringify(newJobs);
+                localStorage.setItem('jobs',jsonJob);
+                return newJobs;
+            });
+            setJob('');
+        }
+        else {
+            alert('nhập việc làm')
+        }
+    }
+
     // @ts-ignore
     return (
         <div className="App">
             <Asa name={name} age={age} submit={submit}/>
-            {/*<ul>*/}
-            {/*    {recourse.map((recourse,index) =>*/}
-            {/*        <li key={index}>{recourse.name}{index}</li>*/}
-            {/*    )}*/}
-            {/*</ul>*/}
             {/*<Header title={"tuandeptraiu"} firstName={"firstName"} lastName={"lastName"} arr={arr} arrObj={recourse}*/}
             {/*        status={status}*/}
             {/*/>*/}
             <div>you press button for the {old} time</div>
             <button onClick={() => setOld(old + 1)}>Press button</button>
-            <div>
-                {
-                    course.map(course => (
-                        <PostItem key={course.id} title={course.title} image={course.content}
-                                  description={course.description}
-                                  call={() => handleClick(course)}/>
-                    ))
-                }
-            </div>
+            {/* Todo Post Item*/}
+                {/*    <div>*/}
+                {/*        {*/}
+                {/*            course.map(course => (*/}
+                {/*                <PostItem key={course.id} title={course.title} image={course.content}*/}
+                {/*                          description={course.description}*/}
+                {/*                          call={() => handleClick(course)}/>*/}
+                {/*            ))*/}
+                {/*        }*/}
+                {/*    </div>*/}
+            {/*Todo Post Item*/}
             <Component/>
             <Button title={"Click me"} onClick={() => console.log(Math.random())} href={"https://coccoc.com/search?query=typescript+href+in+button"}/>
             {/*<Input label={"Name"} type={"type"} placeholder={"Enter Name..."} />*/}
@@ -257,6 +277,19 @@ function App() {
                     {a.name}
                 </div>
             ))}
+
+             {/*Todo List*/}
+                <input type="text" value={job} onChange={(e) => setJob(e.target.value)}/>
+                <button onClick={handleSubmitTodoList}>Submit</button>
+                <ul>
+                    {/*// @ts-ignore*/}
+                    {jobs.map((job,index) => (
+                        <li key={index}>
+                            {job}
+                        </li>
+                    ))}
+                </ul>
+            {/*Todo List*/}
         </div>
     );
 }
