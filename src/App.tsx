@@ -197,8 +197,28 @@ function App() {
     const handleSubmit = () => {
 
     }
-    const [checked, setChecked] = useState(1);
+
+    const [checked, setChecked] = useState([]);
+    const handleCheck = (id : number) => {
+
+
+        // @ts-ignore
+        setChecked(prevState => {
+            // @ts-ignore
+            const isChecked = checked.includes(id);
+            if (isChecked) {
+                return checked.filter(item => item != id);
+            }else {
+                return [...prevState, id];
+            }
+
+        });
+    }
     console.log(checked)
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
     return (
         <div className="App">
             <Asa name={name} age={age} submit={submit}/>
@@ -229,10 +249,10 @@ function App() {
             {courses.map((a) => (
                 <div key={a.id}>
                     <input
-                        type="radio"
-                        name={"course"}
-                        checked={checked === a.id}
-                        onChange={() => setChecked(a.id)}
+                        type="checkbox"
+                        // @ts-ignore
+                        checked={checked.includes(a.id)}
+                        onChange={() =>  handleCheck(a.id)}
                     />
                     {a.name}
                 </div>
