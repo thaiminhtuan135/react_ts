@@ -95,7 +95,7 @@ function App() {
     const name = 'tuan';
     const age = 12;
     const submit = () => {
-        console.log('tuan')
+        // console.log('tuan')
     }
     const test   = (id = 1) => {
         console.log(id);
@@ -171,6 +171,32 @@ function App() {
     // const type = 'CheckBox';
     const Component = Form['CheckBox'];
     const Input = Form['Input'];
+    const orders = [100, 200, 300];
+    const total = orders.reduce((total, cur) => total + cur);
+    const [count, setCount] = useState(() => total);
+    const handldeIncrease = () => {
+        setCount(count => count+1);
+        setCount(count => count+1);
+        setCount(count => count+1);
+    }
+
+    const courses = [
+        {
+            id: 1,
+            name : "HTML ,CSS"
+        },
+        {
+            id: 2,
+            name : "reactjs"
+        },
+        {
+            id: 3,
+            name : "javascript"
+        },
+    ];
+    const handleSubmit = () => {
+
+    }
     return (
         <div className="App">
             <Asa name={name} age={age} submit={submit}/>
@@ -197,6 +223,8 @@ function App() {
             <Button title={"Click me"} onClick={() => console.log(Math.random())} href={"https://coccoc.com/search?query=typescript+href+in+button"}/>
             {/*<Input label={"Name"} type={"type"} placeholder={"Enter Name..."} />*/}
             <CustomInput onFocusCapture={() => console.log(Math.random())} type={"text"} placeholder={"Enter name..."} label={"Name"}/>
+
+
         </div>
     );
 }
