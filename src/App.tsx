@@ -197,6 +197,8 @@ function App() {
     const handleSubmit = () => {
 
     }
+    const [checked, setChecked] = useState(1);
+    console.log(checked)
     return (
         <div className="App">
             <Asa name={name} age={age} submit={submit}/>
@@ -224,7 +226,17 @@ function App() {
             {/*<Input label={"Name"} type={"type"} placeholder={"Enter Name..."} />*/}
             <CustomInput onFocusCapture={() => console.log(Math.random())} type={"text"} placeholder={"Enter name..."} label={"Name"}/>
 
-
+            {courses.map((a) => (
+                <div key={a.id}>
+                    <input
+                        type="radio"
+                        name={"course"}
+                        checked={checked === a.id}
+                        onChange={() => setChecked(a.id)}
+                    />
+                    {a.name}
+                </div>
+            ))}
         </div>
     );
 }
