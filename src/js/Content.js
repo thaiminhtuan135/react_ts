@@ -7,6 +7,7 @@ function Content(){
     const [posts, setPosts] = useState([]);
     const [title, setTitle] = useState('');
     const [type, setType] = useState('posts');
+    const [showGoToTop, setShowGoToTop] = useState(false);
     // console.log(type)
     // useEffect(() => {
     //     return () => {
@@ -34,6 +35,28 @@ function Content(){
         };
     }, [type]);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            console.log(window.scrollY)
+            // if (window.scrollY > 1000) {
+            //     //show
+            //     setShowGoToTop(true);
+            // } else {
+            //     // hide
+            //     setShowGoToTop(false);
+            // }
+
+            setShowGoToTop(window.scrollY >= 1000)
+
+
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        }
+    }, []);
+
 
     return(
         <div>
@@ -55,6 +78,15 @@ function Content(){
                 )))}
             </ul>
             <div>tuadsdsdssssdsssdsddsdssdsdsdsdsdsdsdsssddsdsddssddsdsssdd sn</div>
+            {showGoToTop && (
+                <button style={{
+                    position: 'fixed',
+                    right: 20,
+                    bottom: 20,
+                }}>
+                       go to top
+            </button>
+            )}
         </div>
     )
 }
