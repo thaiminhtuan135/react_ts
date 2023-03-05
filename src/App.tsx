@@ -4,6 +4,8 @@ import './App.css';
 import Asa from "./components/example";
 import CustomInput from "./components/CustomInput";
 import {json} from "stream/consumers";
+import axios from "axios";
+import Content from "./js/Content";
 
 interface fullName {
     firstName: string;
@@ -58,15 +60,15 @@ function Header(props: fullName) {
     )
 }
 
-class Content extends React.Component<any, any> {
-    render() {
-        return (
-            <div className="content">
-                Contant
-            </div>
-        )
-    }
-}
+// class Content extends React.Component<any, any> {
+//     render() {
+//         return (
+//             <div className="content">
+//                 Contant
+//             </div>
+//         )
+//     }
+// }
 
 function PostItem(props: postItem) {
     // props.call(Math.random());
@@ -91,6 +93,7 @@ function Button(props:button) {
         </div>
     );
 }
+
 
 function App() {
     const name = 'tuan';
@@ -123,9 +126,9 @@ function App() {
     //         document.title = `You click ${old} time`;
     //     };
     // }, [old]);
-    useEffect(() => {
-        document.title = `(${old}) lần click`
-    })
+    // useEffect(() => {
+    //     document.title = `(${old}) lần click`
+    // })
     const handle = () => {
         setOld(old + 1);
         document.title = `You click ${old + 1} time`;
@@ -215,7 +218,6 @@ function App() {
 
         });
     }
-    console.log(checked)
 
 
     // console.log(storageJobs)
@@ -241,6 +243,20 @@ function App() {
         }
     }
 
+    // const [title, setTitle] = useState('');
+    // const [posts, setPosts] = useState([]);
+    // useEffect(() => {
+    //     return () => {
+    //         axios
+    //             .get('https://jsonplaceholder.typicode.com/posts')
+    //             .then((res) => {
+    //                 // console.log(res)
+    //                 setPosts(res.data);
+    //             }).catch(() => {
+    //         });
+    //     };
+    // },[]);
+    const [showComponent, setShowComponent] = useState(false);
     // @ts-ignore
     return (
         <div className="App">
@@ -290,6 +306,9 @@ function App() {
                     ))}
                 </ul>
             {/*Todo List*/}
+
+            <button onClick={() => setShowComponent(!showComponent)}>toggle</button>
+            <div>{ showComponent && <Content /> }</div>
         </div>
     );
 }
