@@ -43,3 +43,7 @@
 .none-decorate-text{
  text-decoration: none;
 }
+.dark{
+  color: #fff;
+  background-color: black;
+}
